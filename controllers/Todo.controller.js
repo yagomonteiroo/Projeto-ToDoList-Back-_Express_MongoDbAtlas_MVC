@@ -30,12 +30,12 @@ class TodoController {
    createTarefa = async (req, res) => {
       const tarefa= req.body;
       if (!tarefa) {
-         res.status(204).send({message:'Nenhuma tarefa cadastrada! Favor preencher todos os campos'});
+         res.status(404).send({message:'Nenhuma tarefa cadastrada! Favor preencher todos os campos'});
          return
       }
       const novaTarefa = await todoService.createTarefa(tarefa)
       .then(()=>{
-         res.status(201).send('Tarefa cadastrada com sucesso!')
+         res.status(201).send({message:'Tarefa cadastrada com sucesso!'})
       })
       .catch(err => res.status(500).send({error:`erro no servidor --> ${err}`}))
    };
@@ -48,7 +48,7 @@ class TodoController {
       }
       const tarefa= req.body;
       if (!tarefa) {
-         res.status(204).send({message:'Nenhuma tarefa cadastrada! Favor preencher todos os campos'});
+         res.status(404).send({message:'Nenhuma tarefa cadastrada! Favor preencher todos os campos'});
          return
       }
       await todoService.editTarefa(id, tarefa)
